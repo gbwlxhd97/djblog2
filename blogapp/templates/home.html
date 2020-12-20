@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+
+
+</head>
+{% extends 'base.html' %}
+
+{%block contents %}
+<body>
+ 
+
+  {% for blog in posts %} <!-- posts로 해주면 한 페이지 블로그 세 개를 대상으로 반복해줌.-->
+      <div class="container">
+      <div class="card">
+      <div class="card-body">
+      <h5 class="card-title">{{blog.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{blog.pub_date}}</h6>
+      <p class="card-text">{{blog.summary}}</p>
+      <a href="{% url 'detail' blog.id %}" class="card-link">...more</a>
+      </div>
+      </div>
+      <br>
+      </div>
+      {%endfor%}
+      <div class="container">
+      <nav>
+        <ul class="pagination">
+          {%if posts.has_previous%}
+          <li>
+            <a href="?page={{posts.previous_page_number}}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {%endif%}
+          <li><a href="?page=1">First</a></li>
+          <li><a href="?page=2">2</a></li>
+          <li><a href="?page=3">3</a></li>
+          <li><a href="?page={{posts.paginator.num_pages}}">Last </a></li>
+          {%if posts.has_next%}
+          <li>
+            <a href="?page={{posts.next_page_number}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          {%endif%}
+        </ul>
+      </nav>
+      </div>
+
+      <div class="container">
+      <!--First Previous 구현
+      {%if posts.has_previous%}
+      <a href="?page=1">first</a>
+      <a href="?page={{posts.previous_page_number}}">Previous</a>
+      {%endif%} -->
+      
+      <!--현재 보고 있는 페이지 -->
+      <nav>
+        <ul class="pagination">
+      <li><span>{{posts.number}}</span></li>
+      <li><span>of</span></li>
+      <li><span>{{posts.paginator.num_pages}}</span></li>
+      </ul>
+      </nav>
+      <!--
+       Next Last 구현
+      {%if posts.has_next%}
+      <a href="?page={{posts.next_page_number}}">Next</a>
+      <a href="?page={{posts.paginator.num_pages}}">Last</a>
+      {%endif%}  -->
+      </div>
+
+
+  
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+{%endblock%}
+</html>

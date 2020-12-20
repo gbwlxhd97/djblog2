@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{%block contents %}
+<body>
+<div class="container">
+
+  <h1>Sign Up!</h1>
+
+
+  <form method = "POST" action="{%url 'signup' %}"> <!--POST  방식 사용.-->
+      {% csrf_token %} <!--보안을 위해서 사용해주는 토큰. ex:사이트 위조 등등.. POST 방식이기 때문에 사용해주었음-->
+      Username:
+      <br>
+      <input name="username" type="text" value="">
+      <br>
+      Password:
+      <br>
+      <input name="password1" type="password" value="">
+      <br>
+      Confirm Password:
+      <br>
+      <input name="password2" type="password" value=""> <!--보통 회원가입 할때 비밀번호 두번 쓰게하는것 구현.-->
+      <br>
+      <br>
+      <input class="btn btn-primary" type="submit" value="Sign Up!">
+  </form>
+
+</div>
+</body>
+{%endblock%}
